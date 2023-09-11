@@ -1,4 +1,15 @@
-class Player {}
+class Player {
+  constructor(game) {
+    this.game = game;
+    this.width = 100;
+    this.height = 100;
+    this.x = 200;
+    this.y = 200;
+  }
+  draw(context) {
+    context.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
 
 class Projectile {}
 
@@ -9,8 +20,11 @@ class Game {
     this.canvas = canvas;
     this.width = this.canvas.width;
     this.height = this.canvas.height;
+    this.player = new Player(this);
   }
-  render() {}
+  render(context) {
+    this.player.draw(context);
+  }
 }
 
 window.addEventListener("load", function () {
@@ -20,5 +34,5 @@ window.addEventListener("load", function () {
   canvas.height = 800;
 
   const game = new Game(canvas);
-  game.render();
+  game.render(ctx);
 });
