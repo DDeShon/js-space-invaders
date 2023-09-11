@@ -3,11 +3,15 @@ class Player {
     this.game = game;
     this.width = 100;
     this.height = 100;
-    this.x = 200;
-    this.y = 200;
+    this.x = this.game.width * 0.5 - this.width * 0.5;
+    this.y = this.game.height - this.height;
+    this.speed = 5;
   }
   draw(context) {
     context.fillRect(this.x, this.y, this.width, this.height);
+  }
+  update() {
+    this.x += this.speed;
   }
 }
 
@@ -24,6 +28,7 @@ class Game {
   }
   render(context) {
     this.player.draw(context);
+    this.player.update();
   }
 }
 
@@ -35,4 +40,8 @@ window.addEventListener("load", function () {
 
   const game = new Game(canvas);
   game.render(ctx);
+  function animate() {
+    game.render(ctx);
+    window.requestAnimationFrame(animate);
+  }
 });
