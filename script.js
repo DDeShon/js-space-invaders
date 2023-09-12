@@ -29,7 +29,11 @@ class Game {
 
     // event listeners
     window.addEventListener("keydown", (e) => {
-      this.keys.push(e.key);
+      if (this.keys.indexOf(e.key) === -1) this.keys.push(e.key);
+    });
+    window.addEventListener("keydown", (e) => {
+      const index = this.keys.indexOf(e.key);
+      if (index > -1) this.keys.splice(index, 1);
     });
   }
   render(context) {
