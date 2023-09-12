@@ -5,7 +5,7 @@ class Player {
     this.height = 100;
     this.x = this.game.width * 0.5 - this.width * 0.5;
     this.y = this.game.height - this.height;
-    this.speed = 5;
+    this.speed = 0;
   }
   draw(context) {
     context.fillRect(this.x, this.y, this.width, this.height);
@@ -24,7 +24,11 @@ class Game {
     this.canvas = canvas;
     this.width = this.canvas.width;
     this.height = this.canvas.height;
+    this.keys = [];
     this.player = new Player(this);
+
+    // event listeners
+    window.addEventListener("keydown", function (e) {});
   }
   render(context) {
     this.player.draw(context);
