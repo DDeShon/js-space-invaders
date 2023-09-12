@@ -5,13 +5,14 @@ class Player {
     this.height = 100;
     this.x = this.game.width * 0.5 - this.width * 0.5;
     this.y = this.game.height - this.height;
-    this.speed = 0;
+    this.speed = 5;
   }
   draw(context) {
     context.fillRect(this.x, this.y, this.width, this.height);
   }
   update() {
-    this.x += this.speed;
+    if (this.game.keys.indexOf("ArrowLeft") > -1) this.x -= this.speed;
+    if (this.game.keys.indexOf("ArrowRight") > -1) this.x += this.speed;
   }
 }
 
@@ -30,12 +31,10 @@ class Game {
     // event listeners
     window.addEventListener("keydown", (e) => {
       if (this.keys.indexOf(e.key) === -1) this.keys.push(e.key);
-      console.log(this.keys);
     });
     window.addEventListener("keydown", (e) => {
       const index = this.keys.indexOf(e.key);
       if (index > -1) this.keys.splice(index, 1);
-      console.log(this.keys);
     });
   }
   render(context) {
