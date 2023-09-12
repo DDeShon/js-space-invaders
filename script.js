@@ -28,7 +28,9 @@ class Game {
     this.player = new Player(this);
 
     // event listeners
-    window.addEventListener("keydown", function (e) {});
+    window.addEventListener("keydown", (e) => {
+      this.keys.push(e.key);
+    });
   }
   render(context) {
     this.player.draw(context);
