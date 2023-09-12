@@ -39,9 +39,11 @@ window.addEventListener("load", function () {
   canvas.height = 800;
 
   const game = new Game(canvas);
-  game.render(ctx);
+
   function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     game.render(ctx);
     window.requestAnimationFrame(animate);
   }
+  animate();
 });
