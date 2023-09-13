@@ -16,9 +16,9 @@ class Player {
     if (this.game.keys.indexOf("ArrowRight") > -1) this.x += this.speed;
 
     // horizontal boundaries
-    if (this.x < 0) this.x = 0;
-    else if (this.x > this.game.width - this.width)
-      this.x = this.game.width - this.width;
+    if (this.x < -this.width * 0.5) this.x = -this.width * 0.5;
+    else if (this.x > this.game.width - this.width * 0.5)
+      this.x = this.game.width - this.width * 0.5;
   }
   shoot() {
     const projectile = this.game.getProjectile();
@@ -28,8 +28,8 @@ class Player {
 
 class Projectile {
   constructor() {
-    this.width = 4;
-    this.height = 20;
+    this.width = 8;
+    this.height = 40;
     this.x = 0;
     this.y = 0;
     this.speed = 20;
