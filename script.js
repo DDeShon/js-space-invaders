@@ -31,6 +31,22 @@ class Projectile {
     this.speed = 20;
     this.free = true;
   }
+  draw(context) {
+    if (!this.free) {
+      context.fillRect(this.x, this.y, this.width, this.height);
+    }
+  }
+  update() {
+    if (!this.free) {
+      this.y -= this.speed;
+    }
+  }
+  start() {
+    this.free = false;
+  }
+  reset() {
+    this.free = true;
+  }
 }
 
 class Enemy {}
