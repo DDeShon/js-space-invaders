@@ -22,7 +22,16 @@ class Player {
   }
 }
 
-class Projectile {}
+class Projectile {
+  constructor() {
+    this.width = 4;
+    this.height = 20;
+    this.x = 0;
+    this.y = 0;
+    this.speed = 20;
+    this.free = true;
+  }
+}
 
 class Enemy {}
 
