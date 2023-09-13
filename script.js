@@ -73,7 +73,7 @@ class Game {
     // event listeners
     window.addEventListener("keydown", (e) => {
       if (this.keys.indexOf(e.key) === -1) this.keys.push(e.key);
-      if (e.key === "Enter") this.player.shoot();
+      if (e.key === " ") this.player.shoot();
     });
     window.addEventListener("keyup", (e) => {
       const index = this.keys.indexOf(e.key);
