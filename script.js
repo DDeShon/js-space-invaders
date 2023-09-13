@@ -43,10 +43,11 @@ class Projectile {
   update() {
     if (!this.free) {
       this.y -= this.speed;
+      if (this.y < -this.height) this.reset();
     }
   }
   start(x, y) {
-    this.x = x;
+    this.x = x - this.width * 0.5;
     this.y = y;
     this.free = false;
   }
@@ -66,7 +67,7 @@ class Game {
     this.player = new Player(this);
 
     this.projectilesPool = [];
-    this.numberOfProjectiles = 10;
+    this.numberOfProjectiles = 20;
     this.createProjectiles();
     console.log(this.projectilesPool);
 
