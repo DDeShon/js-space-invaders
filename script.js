@@ -20,6 +20,10 @@ class Player {
     else if (this.x > this.game.width - this.width)
       this.x = this.game.width - this.width;
   }
+  shoot() {
+    const projectile = this.game.getProjectile();
+    if (projectile) projectile.start(this.x, this.y);
+  }
 }
 
 class Projectile {
@@ -41,7 +45,9 @@ class Projectile {
       this.y -= this.speed;
     }
   }
-  start() {
+  start(x, y) {
+    this.x = x;
+    this.y = y;
     this.free = false;
   }
   reset() {
@@ -67,6 +73,7 @@ class Game {
     // event listeners
     window.addEventListener("keydown", (e) => {
       if (this.keys.indexOf(e.key) === -1) this.keys.push(e.key);
+      if (e.key === "Enter") this.player.shoot();
     });
     window.addEventListener("keyup", (e) => {
       const index = this.keys.indexOf(e.key);
@@ -76,6 +83,10 @@ class Game {
   render(context) {
     this.player.draw(context);
     this.player.update();
+    this.projectilesPool.forEach((projectile) => {
+      projectile.update();
+      projectile.draw(context);
+    });
   }
 
   // create projectiles object pool
