@@ -88,10 +88,15 @@ class Game {
     this.keys = [];
     this.player = new Player(this);
 
+    // projectiles
     this.projectilesPool = [];
     this.numberOfProjectiles = 20;
     this.createProjectiles();
-    console.log(this.projectilesPool);
+
+    // enemy waves
+    this.columns = 3;
+    this.rows = 3;
+    this.enemySize = 60;
 
     // event listeners
     window.addEventListener("keydown", (e) => {
