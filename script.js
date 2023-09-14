@@ -57,17 +57,22 @@ class Projectile {
 }
 
 class Enemy {
-  constructor(game) {
+  constructor(game, positionX, positionY) {
     this.game = game;
-    this.width;
-    this.height;
-    this.x;
-    this.y;
+    this.width = this.game.enemySize;
+    this.height = this.game.enemySize;
+    this.x = 0;
+    this.y = 0;
+    this.positionX = positionX;
+    this.positionY = positionY;
   }
   draw(context) {
     context.strokeRect(this.x, this.y, this.width, this.height);
   }
-  update() {}
+  update(x, y) {
+    this.x = x + this.positionX;
+    this.y = y + this.positionY;
+  }
 }
 
 class Wave {
@@ -79,8 +84,10 @@ class Wave {
     this.y = 0;
     this.speedX = 3;
     this.speedY = 0;
+    this.enemies = [];
   }
   render(context) {
+    this.speedY = 0;
     context.strokeRect(this.x, this.y, this.width, this.height);
     this.x += this.speedX;
     if (this.x < 0 || this.x > this.game.width - this.width) {
@@ -88,6 +95,14 @@ class Wave {
       this.speedY = this.game.enemySize;
       this.x += this.speedX;
       this.y += this.speedY;
+    }
+  }
+  create() {
+    for (let y = 0; y < this.game.rows; y++) {
+      for (let y = 0; x < this.game.columns; x++) {
+        let enemyX = x * this.game.enemySize;
+        let enemyY = y * this.game.enemySize;
+      }
     }
   }
 }
