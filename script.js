@@ -77,9 +77,18 @@ class Wave {
     this.height = this.game.rows * this.game.enemySize;
     this.x = 0;
     this.y = 0;
+    this.speedX = 3;
+    this.speedY = 0;
   }
   render(context) {
     context.strokeRect(this.x, this.y, this.width, this.height);
+    this.x += this.speedX;
+    if (this.x < 0 || this.x > this.game.width - this.width) {
+      this.speedX *= -1;
+      this.speedY = this.game.enemySize;
+      this.x += this.speedX;
+      this.y += this.speedY;
+    }
   }
 }
 
@@ -121,6 +130,9 @@ class Game {
       projectile.update();
       projectile.draw(context);
     });
+    this.waves.forEach((wave) => {
+      wave.render(context);
+    });
   }
 
   // create projectiles object pool
@@ -144,6 +156,8 @@ window.addEventListener("load", function () {
   canvas.width = 600;
   canvas.height = 800;
   ctx.fillStyle = "white";
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 5;
 
   const game = new Game(canvas);
 
