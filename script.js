@@ -59,6 +59,24 @@ class Projectile {
 class Enemy {
   constructor(game) {
     this.game = game;
+    this.width;
+    this.height;
+    this.x;
+    this.y;
+  }
+  draw(context) {
+    context.strokeRect(this.x, this.y, this.width, this.height);
+  }
+  update() {}
+}
+
+class Wave {
+  constructor(game) {
+    this.game = game;
+    this.width;
+    this.height;
+    this.x = 0;
+    this.y = 0;
   }
 }
 
