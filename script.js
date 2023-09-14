@@ -73,10 +73,13 @@ class Enemy {
 class Wave {
   constructor(game) {
     this.game = game;
-    this.width;
-    this.height;
+    this.width = this.game.columns * this.game.enemySize;
+    this.height = this.game.rows * this.game.enemySize;
     this.x = 0;
     this.y = 0;
+  }
+  render(context) {
+    context.strokeRect(this.x, this.y, this.width, this.height);
   }
 }
 
@@ -97,6 +100,9 @@ class Game {
     this.columns = 3;
     this.rows = 3;
     this.enemySize = 60;
+
+    this.waves = [];
+    this.waves.push(new Wave(this));
 
     // event listeners
     window.addEventListener("keydown", (e) => {
