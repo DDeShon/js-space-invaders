@@ -56,7 +56,11 @@ class Projectile {
   }
 }
 
-class Enemy {}
+class Enemy {
+  constructor(game) {
+    this.game = game;
+  }
+}
 
 class Game {
   constructor(canvas) {
@@ -110,6 +114,7 @@ window.addEventListener("load", function () {
   const ctx = canvas.getContext("2d");
   canvas.width = 600;
   canvas.height = 800;
+  ctx.fillStyle = "white";
 
   const game = new Game(canvas);
 
