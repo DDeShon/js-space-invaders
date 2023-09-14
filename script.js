@@ -81,7 +81,7 @@ class Wave {
     this.width = this.game.columns * this.game.enemySize;
     this.height = this.game.rows * this.game.enemySize;
     this.x = 0;
-    this.y = 0;
+    this.y = -this.height;
     this.speedX = 3;
     this.speedY = 0;
     this.enemies = [];
@@ -89,7 +89,6 @@ class Wave {
   }
   render(context) {
     this.speedY = 0;
-    context.strokeRect(this.x, this.y, this.width, this.height);
     if (this.x < 0 || this.x > this.game.width - this.width) {
       this.speedX *= -1;
       this.speedY = this.game.enemySize;
@@ -97,7 +96,7 @@ class Wave {
     this.x += this.speedX;
     this.y += this.speedY;
     this.enemies.forEach((enemy) => {
-      enemy.update();
+      enemy.update(this.x, this.y);
       enemy.draw(context);
     });
   }
