@@ -141,6 +141,9 @@ class Game {
     this.waves = [];
     this.waves.push(new Wave(this));
 
+    // keep track of player score
+    this.score = 0;
+
     // event listeners
     window.addEventListener("keydown", (e) => {
       if (this.keys.indexOf(e.key) === -1) this.keys.push(e.key);
@@ -152,6 +155,7 @@ class Game {
     });
   }
   render(context) {
+    this.drawStatusText(context);
     this.player.draw(context);
     this.player.update();
     this.projectilesPool.forEach((projectile) => {
@@ -186,6 +190,10 @@ class Game {
       a.y + a.height > b.y
     );
   }
+
+  drawStatusText(context) {
+    context.fillText("Score:  " + this.score, 20, 40);
+  }
 }
 
 window.addEventListener("load", function () {
@@ -196,6 +204,7 @@ window.addEventListener("load", function () {
   ctx.fillStyle = "white";
   ctx.strokeStyle = "white";
   ctx.lineWidth = 5;
+  ctx.font = "30px Impact";
 
   const game = new Game(canvas);
 
