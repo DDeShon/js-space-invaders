@@ -65,6 +65,7 @@ class Enemy {
     this.y = 0;
     this.positionX = positionX;
     this.positionY = positionY;
+    this.markedForDeletion = false;
   }
   draw(context) {
     context.strokeRect(this.x, this.y, this.width, this.height);
@@ -105,6 +106,7 @@ class Wave {
       enemy.update(this.x, this.y);
       enemy.draw(context);
     });
+    this.enemies = this.enemies.filter((object) => !object.markedForDeletion);
   }
   create() {
     for (let y = 0; y < this.game.rows; y++) {
