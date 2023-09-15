@@ -72,6 +72,12 @@ class Enemy {
   update(x, y) {
     this.x = x + this.positionX;
     this.y = y + this.positionY;
+    // check collision enemies - projectiles
+    this.game.projectilesPool.forEach((projectile) => {
+      if (this.game.checkCollision(this, projectile)) {
+        this.markedForDeletion = true;
+      }
+    });
   }
 }
 
@@ -166,6 +172,16 @@ class Game {
     for (let i = 0; i < this.projectilesPool.length; i++) {
       if (this.projectilesPool[i].free) return this.projectilesPool[i];
     }
+  }
+
+  // collision detection between 2 rectangles
+  checkCollision(a, b) {
+    return (
+      a.x < b.x + b.width &&
+      a.x + a.width > b.x &&
+      a.y < b.y + b.height &&
+      a.y + a.height > b.y
+    );
   }
 }
 
