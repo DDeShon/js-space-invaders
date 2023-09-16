@@ -82,7 +82,7 @@ class Enemy {
       }
     });
     // lose condition
-    if (this.y + this.height > this.game.height) {
+    if (this.y + this.height > this.game.height - 100) {
       this.game.gameOver = true;
       this.markedForDeletion = true;
     }
@@ -140,7 +140,7 @@ class Game {
     this.createProjectiles();
 
     // enemy waves
-    this.columns = 3;
+    this.columns = 6;
     this.rows = 3;
     this.enemySize = 60;
 
