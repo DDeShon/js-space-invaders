@@ -99,6 +99,7 @@ class Wave {
     this.speedX = 3;
     this.speedY = 0;
     this.enemies = [];
+    this.nextWaveTrigger = false;
     this.create();
   }
   render(context) {
@@ -140,12 +141,13 @@ class Game {
     this.createProjectiles();
 
     // enemy waves
-    this.columns = 6;
-    this.rows = 3;
+    this.columns = 2;
+    this.rows = 2;
     this.enemySize = 60;
 
     this.waves = [];
     this.waves.push(new Wave(this));
+    this.waveCount = 1;
 
     // keep track of player score
     this.score = 0;
@@ -204,12 +206,19 @@ class Game {
     context.shadowOffsetY = 2;
     context.shadowColor = "black";
     context.fillText("Score:  " + this.score, 20, 40);
+    context.fillText("Wave:  " + this.waveCount, 20, 80);
     if (this.gameOver) {
       context.textAlign = "center";
       context.font = "100px Impact";
       context.fillText("GAME OVER!", this.width * 0.5, this.height * 0.5);
     }
     context.restore();
+  }
+
+  newWave() {
+    this.columns++;
+    this.rows++;
+    this.waves.push(new Wave(this));
   }
 }
 
