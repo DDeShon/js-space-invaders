@@ -173,6 +173,11 @@ class Game {
     });
     this.waves.forEach((wave) => {
       wave.render(context);
+      if (wave.enemies.length < 1 && !wave.nextWaveTrigger && !this.gameOver) {
+        this.newWave();
+        this.waveCount++;
+        wave.nextWaveTrigger = true;
+      }
     });
   }
 
