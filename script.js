@@ -200,6 +200,9 @@ class Game {
 
   drawStatusText(context) {
     context.save();
+    context.shadowOffsetX = 2;
+    context.shadowOffsetY = 2;
+    context.shadowColor = "black";
     context.fillText("Score:  " + this.score, 20, 40);
     if (this.gameOver) {
       context.textAlign = "center";
