@@ -230,6 +230,12 @@ class Game {
       context.textAlign = "center";
       context.font = "100px Impact";
       context.fillText("GAME OVER!", this.width * 0.5, this.height * 0.5);
+      context.font = "20px Impact";
+      context.fillText(
+        "Press R to restart!",
+        this.width * 0.5,
+        this.height * 0.5 + 30
+      );
     }
     context.restore();
   }
