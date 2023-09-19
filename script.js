@@ -100,7 +100,7 @@ class Enemy {
 
     // check health of enemy and delete
     if (this.lives < 1) {
-      this.frameX++;
+      if (this.game.spriteUpdate) this.frameX++;
       if (this.frameX > this.maxFrame) {
         this.markedForDeletion = true;
         if (!this.game.gameOver) this.game.score += this.maxLives;
@@ -223,6 +223,15 @@ class Game {
     });
   }
   render(context, deltaTime) {
+    // sprite timing
+    if (this.spriteTimer > this.spriteInterval) {
+      this.spriteUpdate = true;
+      this.spriteTimer = 0;
+    } else {
+      this.spriteUpdate = false;
+      this.spriteTimer += deltaTime;
+    }
+
     this.drawStatusText(context);
     this.player.draw(context);
     this.player.update();
