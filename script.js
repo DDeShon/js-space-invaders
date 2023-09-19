@@ -74,7 +74,7 @@ class Enemy {
     this.markedForDeletion = false;
   }
   draw(context) {
-    context.strokeRect(this.x, this.y, this.width, this.height);
+    // context.strokeRect(this.x, this.y, this.width, this.height);
     context.drawImage(
       this.image,
       this.frameX * this.width,
@@ -143,15 +143,16 @@ class Wave {
     this.game = game;
     this.width = this.game.columns * this.game.enemySize;
     this.height = this.game.rows * this.game.enemySize;
-    this.x = 0;
+    this.x = this.game.width * 0.5 - this.width * 0.5;
     this.y = -this.height;
-    this.speedX = 3;
+    this.speedX = Math.random() < 0.5 ? -1 : 1;
     this.speedY = 0;
     this.enemies = [];
     this.nextWaveTrigger = false;
     this.create();
   }
   render(context) {
+    if (this.y < 0) this.y += 5;
     this.speedY = 0;
     if (this.x < 0 || this.x > this.game.width - this.width) {
       this.speedX *= -1;
