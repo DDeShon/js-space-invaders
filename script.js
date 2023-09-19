@@ -104,6 +104,12 @@ class Enemy {
   }
 }
 
+class Beetlemorph extends Enemy {
+  constructor(game, positionX, positionY) {
+    super(game, positionX, positionY);
+  }
+}
+
 class Wave {
   constructor(game) {
     this.game = game;
