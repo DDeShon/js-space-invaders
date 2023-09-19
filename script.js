@@ -113,6 +113,9 @@ class Enemy {
       this.markedForDeletion = true;
     }
   }
+  hit(damage) {
+    this.lives -= damage;
+  }
 }
 
 class Beetlemorph extends Enemy {
@@ -120,7 +123,10 @@ class Beetlemorph extends Enemy {
     super(game, positionX, positionY);
     this.image = document.getElementById("beetlemorph");
     this.frameX = 0;
-    this.frameY = 0;
+    this.frameY = Math.floor(Math.random() * 4);
+    this.maxFrame = 2;
+    this.lives = 1;
+    this.maxLives = this.lives;
   }
 }
 
