@@ -92,7 +92,11 @@ class Enemy {
     this.y = y + this.positionY;
     // check collision enemies - projectiles
     this.game.projectilesPool.forEach((projectile) => {
-      if (!projectile.free && this.game.checkCollision(this, projectile)) {
+      if (
+        !projectile.free &&
+        this.game.checkCollision(this, projectile) &&
+        this.lives > 0
+      ) {
         this.hit(1);
         projectile.reset();
       }
@@ -203,7 +207,7 @@ class Game {
     // sprite animations
     this.spriteUpdate = false;
     this.spriteTimer = 0;
-    this.spriteInterval = 500;
+    this.spriteInterval = 150;
 
     // keep track of player score
     this.score = 0;
