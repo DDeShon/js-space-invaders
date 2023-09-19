@@ -93,11 +93,19 @@ class Enemy {
     // check collision enemies - projectiles
     this.game.projectilesPool.forEach((projectile) => {
       if (!projectile.free && this.game.checkCollision(this, projectile)) {
-        this.markedForDeletion = true;
+        this.hit(1);
         projectile.reset();
-        if (!this.game.gameOver) this.game.score++;
       }
     });
+
+    // check health of enemy and delete
+    if (this.lives < 1) {
+      this.frameX++;
+      if (this.frameX > this.maxFrame) {
+        this.markedForDeletion = true;
+        if (!this.game.gameOver) this.game.score += this.maxLives;
+      }
+    }
 
     // check collision with player
     if (this.game.checkCollision(this, this.game.player)) {
