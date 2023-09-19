@@ -204,10 +204,10 @@ class Game {
     this.waves.push(new Wave(this));
     this.waveCount = 1;
 
-    // sprite animations
+    // sprite animation timers
     this.spriteUpdate = false;
     this.spriteTimer = 0;
-    this.spriteInterval = 150;
+    this.spriteInterval = 120;
 
     // keep track of player score
     this.score = 0;
