@@ -1,15 +1,28 @@
 class Player {
   constructor(game) {
     this.game = game;
-    this.width = 100;
-    this.height = 100;
+    this.width = 140;
+    this.height = 120;
     this.x = this.game.width * 0.5 - this.width * 0.5;
     this.y = this.game.height - this.height;
-    this.speed = 10;
+    this.speed = 5;
     this.lives = 3;
+    this.image = document.getElementById("player");
+    this.frameX = 0;
   }
   draw(context) {
-    context.fillRect(this.x, this.y, this.width, this.height);
+    // context.fillRect(this.x, this.y, this.width, this.height);
+    context.drawImage(
+      this.image,
+      this.frameX * this.width,
+      0,
+      this.width,
+      this.height,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
   }
   update() {
     // horizontal movement
