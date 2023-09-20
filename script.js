@@ -8,10 +8,28 @@ class Player {
     this.speed = 5;
     this.lives = 3;
     this.image = document.getElementById("player");
+    this.jets_image = document.getElementById("player_jets");
     this.frameX = 0;
+    this.jetsFrame = 1;
   }
   draw(context) {
-    // context.fillRect(this.x, this.y, this.width, this.height);
+    if (this.game.keys.indexOf(" ") > -1) {
+      this.frameX = 1;
+    } else {
+      this.frameX = 0;
+    }
+
+    context.drawImage(
+      this.jets_image,
+      this.jetsFrame * this.width,
+      0,
+      this.width,
+      this.height,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
     context.drawImage(
       this.image,
       this.frameX * this.width,
@@ -26,8 +44,21 @@ class Player {
   }
   update() {
     // horizontal movement
-    if (this.game.keys.indexOf("ArrowLeft") > -1) this.x -= this.speed;
-    if (this.game.keys.indexOf("ArrowRight") > -1) this.x += this.speed;
+    if (
+      this.game.keys.indexOf("ArrowLeft") > -1 ||
+      this.game.keys.indexOf("a") > -1
+    ) {
+      this.x -= this.speed;
+      this.jetsFrame = 0;
+    } else if (
+      this.game.keys.indexOf("ArrowRight") > -1 ||
+      this.game.keys.indexOf("d") > -1
+    ) {
+      this.x += this.speed;
+      this.jetsFrame = 2;
+    } else {
+      this.jetsFrame = 1;
+    }
 
     // horizontal boundaries
     if (this.x < -this.width * 0.5) this.x = -this.width * 0.5;
@@ -253,12 +284,12 @@ class Game {
     }
 
     this.drawStatusText(context);
-    this.player.draw(context);
-    this.player.update();
     this.projectilesPool.forEach((projectile) => {
       projectile.update();
       projectile.draw(context);
     });
+    this.player.draw(context);
+    this.player.update();
     this.waves.forEach((wave) => {
       wave.render(context);
       if (wave.enemies.length < 1 && !wave.nextWaveTrigger && !this.gameOver) {
