@@ -193,8 +193,8 @@ class Rhinomorph extends Enemy {
     this.image = document.getElementById("rhinomorph");
     this.frameX = 0;
     this.frameY = Math.floor(Math.random() * 4);
-    this.maxFrame = 2;
-    this.lives = 1;
+    this.maxFrame = 5;
+    this.lives = 4;
     this.maxLives = this.lives;
   }
 }
