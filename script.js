@@ -210,7 +210,8 @@ class Boss {
     this.height = 200;
     this.x = this.game.width * 0.5 - this.width * 0.5;
     this.y = -this.height;
-    this.speedX = Math.random() < 0.5 ? -1 : 1
+    this.speedX = Math.random() < 0.5 ? -1 : 1;
+  }
 }
 
 class Wave {
