@@ -203,6 +203,16 @@ class Rhinomorph extends Enemy {
   }
 }
 
+class Boss {
+  constructor(game) {
+    this.game = game;
+    this.width = 200;
+    this.height = 200;
+    this.x = this.game.width * 0.5 - this.width * 0.5;
+    this.y = -this.height;
+    this.speedX = Math.random() < 0.5 ? -1 : 1
+}
+
 class Wave {
   constructor(game) {
     this.game = game;
