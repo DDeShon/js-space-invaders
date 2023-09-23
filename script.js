@@ -220,6 +220,22 @@ class Boss {
     this.frameY = Math.floor(Math.random() * 4);
     this.maxFrame = 11;
   }
+  draw(context) {
+    context.drawImage(
+      this.image,
+      0,
+      0,
+      this.width,
+      this.height,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
+  }
+  update() {
+    if (this.y < 0) this.y += 10;
+  }
 }
 
 class Wave {
@@ -401,7 +417,6 @@ class Game {
       this.rows++;
     }
     this.waves.push(new Wave(this));
-    console.log(this.waves);
     this.waves = this.waves.filter((object) => !object.markedForDeletion);
   }
   restart() {
