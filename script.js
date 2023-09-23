@@ -234,7 +234,14 @@ class Boss {
     );
   }
   update() {
-    if (this.y < 0) this.y += 10;
+    this.speedY = 0;
+    if (this.y < 0) this.y += 2;
+    if (this.x < 0 || this.x > this.game.width - this.width) {
+      this.speedX *= -1;
+      this.speedY = 50;
+    }
+    this.x += this.speedX;
+    this.y += this.speedY;
   }
 }
 
@@ -303,7 +310,6 @@ class Game {
     this.enemySize = 80;
 
     this.waves = [];
-    this.waves.push(new Wave(this));
     this.waveCount = 1;
 
     // sprite animation timers
@@ -314,6 +320,10 @@ class Game {
     // keep track of player score
     this.score = 0;
     this.gameOver = false;
+
+    // Boss array
+    this.bossArray = [];
+    this.restart();
 
     // event listeners
     window.addEventListener("keydown", (e) => {
@@ -342,6 +352,10 @@ class Game {
     this.projectilesPool.forEach((projectile) => {
       projectile.update();
       projectile.draw(context);
+    });
+    this.bossArray.forEach((boss) => {
+      boss.draw(context);
+      boss.update();
     });
     this.player.draw(context);
     this.player.update();
@@ -424,7 +438,9 @@ class Game {
     this.columns = 2;
     this.rows = 2;
     this.waves = [];
-    this.waves.push(new Wave(this));
+    this.bossArray = [];
+    // this.waves.push(new Wave(this));
+    this.bossArray.push(new Boss(this));
     this.waveCount = 1;
     this.score = 0;
     this.gameOver = false;
