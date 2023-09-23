@@ -401,6 +401,8 @@ class Game {
       this.rows++;
     }
     this.waves.push(new Wave(this));
+    console.log(this.waves);
+    this.waves = this.waves.filter((object) => !object.markedForDeletion);
   }
   restart() {
     this.player.restart();
