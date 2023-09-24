@@ -257,8 +257,14 @@ class Boss {
         !projectile.free &&
         this.lives > 0
       ) {
+        this.hit(1);
+        projectile.reset();
       }
     });
+  }
+  hit(damage) {
+    this.lives -= damage;
+    if (this.lives > 1) this.frameX = 1;
   }
 }
 
