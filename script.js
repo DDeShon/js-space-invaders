@@ -246,7 +246,10 @@ class Boss {
     this.speedY = 0;
     if (this.game.spriteUpdate && this.lives > 0) this.frameX = 0;
     if (this.y < 0) this.y += 2;
-    if (this.x < 0 || this.x > this.game.width - this.width) {
+    if (
+      (this.x < 0 || this.x > this.game.width - this.width) &&
+      this.lives > 0
+    ) {
       this.speedX *= -1;
       this.speedY = this.height * 0.5;
     }
@@ -413,7 +416,6 @@ class Game {
       wave.render(context);
       if (wave.enemies.length < 1 && !wave.nextWaveTrigger && !this.gameOver) {
         this.newWave();
-        this.waveCount++;
         wave.nextWaveTrigger = true;
         if (this.player.lives < this.player.maxLives) this.player.lives++;
       }
@@ -472,15 +474,21 @@ class Game {
   }
 
   newWave() {
-    if (
-      Math.random() < 0.5 &&
-      this.columns * this.enemySize < this.width * 0.8
-    ) {
-      this.columns++;
-    } else if (this.rows * this.enemySize < this.height * 0.6) {
-      this.rows++;
+    this.waveCount++;
+    if (this.waveCount % 10 === 0) {
+      this.bossArray.push(new Boss(this));
+    } else {
+      if (
+        Math.random() < 0.5 &&
+        this.columns * this.enemySize < this.width * 0.8
+      ) {
+        this.columns++;
+      } else if (this.rows * this.enemySize < this.height * 0.6) {
+        this.rows++;
+      }
+      this.waves.push(new Wave(this));
     }
-    this.waves.push(new Wave(this));
+
     this.waves = this.waves.filter((object) => !object.markedForDeletion);
   }
   restart() {
