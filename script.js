@@ -204,7 +204,7 @@ class Rhinomorph extends Enemy {
 }
 
 class Boss {
-  constructor(game) {
+  constructor(game, bossLives) {
     this.game = game;
     this.width = 200;
     this.height = 200;
@@ -212,7 +212,7 @@ class Boss {
     this.y = -this.height;
     this.speedX = Math.random() < 0.5 ? -1 : 1;
     this.speedY = 0;
-    this.lives = 10;
+    this.lives = bossLives;
     this.maxLives = this.lives;
     this.markedForDeletion = false;
     this.image = document.getElementById("boss");
@@ -280,6 +280,7 @@ class Boss {
       if (this.frameX > this.maxFrame) {
         this.markedForDeletion = true;
         this.game.score += this.maxLives;
+        this.game.bossLives += 5;
         if (!this.game.gameOver) this.game.newWave();
       }
     }
@@ -328,7 +329,7 @@ class Wave {
       for (let x = 0; x < this.game.columns; x++) {
         let enemyX = x * this.game.enemySize;
         let enemyY = y * this.game.enemySize;
-        if (this.game.waveCount > 8 && Math.random() < 0.2) {
+        if (this.game.waveCount > 10 && Math.random() < 0.2) {
           this.enemies.push(new Rhinomorph(this.game, enemyX, enemyY));
         } else {
           this.enemies.push(new Beetlemorph(this.game, enemyX, enemyY));
@@ -371,6 +372,7 @@ class Game {
 
     // Boss array
     this.bossArray = [];
+    this.bossLives = 10;
     this.restart();
 
     // event listeners
@@ -417,7 +419,6 @@ class Game {
       if (wave.enemies.length < 1 && !wave.nextWaveTrigger && !this.gameOver) {
         this.newWave();
         wave.nextWaveTrigger = true;
-        if (this.player.lives < this.player.maxLives) this.player.lives++;
       }
     });
   }
@@ -475,8 +476,9 @@ class Game {
 
   newWave() {
     this.waveCount++;
+    if (this.player.lives < this.player.maxLives) this.player.lives++;
     if (this.waveCount % 10 === 0) {
-      this.bossArray.push(new Boss(this));
+      this.bossArray.push(new Boss(this, this.bossLives));
     } else {
       if (
         Math.random() < 0.5 &&
@@ -497,8 +499,9 @@ class Game {
     this.rows = 2;
     this.waves = [];
     this.bossArray = [];
+    this.bossLives = 10;
     // this.waves.push(new Wave(this));
-    this.bossArray.push(new Boss(this));
+    this.bossArray.push(new Boss(this, this.bossLives));
     this.waveCount = 1;
     this.score = 0;
     this.gameOver = false;
