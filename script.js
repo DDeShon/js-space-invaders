@@ -265,14 +265,24 @@ class Boss {
       }
     });
 
+    // collision detection boss/player
+    if (this.game.checkCollision(this, this.game.player) && this.lives > 0) {
+      this.game.gameOver = true;
+      this.lives = 0;
+    }
+
     // boss destroyed
     if (this.lives < 1 && this.game.spriteUpdate) {
       this.frameX++;
       if (this.frameX > this.maxFrame) {
         this.markedForDeletion = true;
         this.game.score += this.maxLives;
+        if (!this.game.gameOver) this.game.newWave();
       }
     }
+
+    // lose condition
+    if (this.y + this.height > this.game.height) this.game.gameOver = true;
   }
   hit(damage) {
     this.lives -= damage;
