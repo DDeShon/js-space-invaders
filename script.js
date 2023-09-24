@@ -268,6 +268,10 @@ class Boss {
     // boss destroyed
     if (this.lives < 1 && this.game.spriteUpdate) {
       this.frameX++;
+      if (this.frameX > this.maxFrame) {
+        this.markedForDeletion = true;
+        this.game.score += this.maxLives;
+      }
     }
   }
   hit(damage) {
@@ -384,10 +388,15 @@ class Game {
       projectile.update();
       projectile.draw(context);
     });
+
     this.bossArray.forEach((boss) => {
       boss.draw(context);
       boss.update();
     });
+    this.bossArray = this.bossArray.filter(
+      (object) => !object.markedForDeletion
+    );
+
     this.player.draw(context);
     this.player.update();
     this.waves.forEach((wave) => {
