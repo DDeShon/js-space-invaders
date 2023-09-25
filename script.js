@@ -41,10 +41,14 @@ class Player {
     this.jets_image = document.getElementById("player_jets");
     this.frameX = 0;
     this.jetsFrame = 1;
+    this.smallLaser = new SmallLaser(this.game);
   }
   draw(context) {
+    // handle sprite frames
     if (this.game.keys.indexOf(" ") > -1) {
       this.frameX = 1;
+    } else if (this.game.keys.indexOf("Shift") > -1) {
+      this.frameX = 2;
     } else {
       this.frameX = 0;
     }
