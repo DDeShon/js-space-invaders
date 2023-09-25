@@ -8,6 +8,7 @@ class Laser {
   render(context) {
     this.x =
       this.game.player.x + this.game.player.width * 0.5 - this.width * 0.5;
+    this.game.player.energy -= this.damage;
 
     context.save();
     context.fillStyle = "gold";
