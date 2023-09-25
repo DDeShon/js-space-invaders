@@ -1,6 +1,13 @@
-class Laser {}
+class Laser {
+  constructor(game) {
+    this.game = game;
+  }
+  render(context) {}
+}
 
-class SmallLaser extends Laser {}
+class SmallLaser extends Laser {
+  constructor() {}
+}
 
 class BigLaser extends Laser {}
 
