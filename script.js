@@ -125,6 +125,11 @@ class Player {
     );
   }
   update() {
+    // energy recharge
+    if (this.energy < this.maxEnergy) this.energy += 0.05;
+    if (this.energy < 1) this.cooldown = true;
+    else if (this.energy > this.maxEnergy * 0.2) this.cooldown = false;
+
     // horizontal movement
     if (
       this.game.keys.indexOf("ArrowLeft") > -1 ||
@@ -557,9 +562,14 @@ class Game {
     }
 
     // energy bar
+    context.save();
+    this.player.cooldown
+      ? (context.fillStyle = "red")
+      : (context.fillStyle = "gold");
     for (let i = 0; i < this.player.energy; i++) {
       context.fillRect(20 + 2 * i, 135, 2, 15);
     }
+    context.restore();
 
     // game over text
     if (this.gameOver) {
