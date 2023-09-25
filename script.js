@@ -49,7 +49,16 @@ class SmallLaser extends Laser {
   }
 }
 
-class BigLaser extends Laser {}
+class BigLaser extends Laser {
+  constructor(game) {
+    super(game);
+    this.width = 30;
+    this.damage = 0.7;
+  }
+  render(context) {
+    super.render(context);
+  }
+}
 
 class Player {
   constructor(game) {
@@ -66,6 +75,7 @@ class Player {
     this.frameX = 0;
     this.jetsFrame = 1;
     this.smallLaser = new SmallLaser(this.game);
+    this.bigLaser = new BigLaser(this.game);
   }
   draw(context) {
     // handle sprite frames
@@ -77,6 +87,12 @@ class Player {
     ) {
       this.frameX = 2;
       this.smallLaser.render(context);
+    } else if (
+      this.game.keys.indexOf("w") > -1 ||
+      this.game.keys.indexOf("W") > -1
+    ) {
+      this.frameX = 3;
+      this.bigLaser.render(context);
     } else {
       this.frameX = 0;
     }
@@ -466,12 +482,20 @@ class Game {
       this.spriteTimer += deltaTime;
     }
 
+    // render game text
     this.drawStatusText(context);
+
+    // render projectiles
     this.projectilesPool.forEach((projectile) => {
       projectile.update();
       projectile.draw(context);
     });
 
+    // render player
+    this.player.draw(context);
+    this.player.update();
+
+    // render boss
     this.bossArray.forEach((boss) => {
       boss.draw(context);
       boss.update();
@@ -480,8 +504,7 @@ class Game {
       (object) => !object.markedForDeletion
     );
 
-    this.player.draw(context);
-    this.player.update();
+    // render waves of enemies
     this.waves.forEach((wave) => {
       wave.render(context);
       if (wave.enemies.length < 1 && !wave.nextWaveTrigger && !this.gameOver) {
