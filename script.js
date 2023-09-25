@@ -6,7 +6,8 @@ class Laser {
     this.height = this.game.height - 50;
   }
   render(context) {
-    this.x = this.game.player.x;
+    this.x =
+      this.game.player.x + this.game.player.width * 0.5 - this.width * 0.5;
 
     context.save();
     context.fillStyle = "gold";
@@ -47,8 +48,12 @@ class Player {
     // handle sprite frames
     if (this.game.keys.indexOf(" ") > -1) {
       this.frameX = 1;
-    } else if (this.game.keys.indexOf("Shift") > -1) {
+    } else if (
+      this.game.keys.indexOf("s") > -1 ||
+      this.game.keys.indexOf("S") > -1
+    ) {
       this.frameX = 2;
+      this.smallLaser.render(context);
     } else {
       this.frameX = 0;
     }
@@ -80,13 +85,15 @@ class Player {
     // horizontal movement
     if (
       this.game.keys.indexOf("ArrowLeft") > -1 ||
-      this.game.keys.indexOf("a") > -1
+      this.game.keys.indexOf("a") > -1 ||
+      this.game.keys.indexOf("A") > -1
     ) {
       this.x -= this.speed;
       this.jetsFrame = 0;
     } else if (
       this.game.keys.indexOf("ArrowRight") > -1 ||
-      this.game.keys.indexOf("d") > -1
+      this.game.keys.indexOf("d") > -1 ||
+      this.game.keys.indexOf("D") > -1
     ) {
       this.x += this.speed;
       this.jetsFrame = 2;
@@ -414,7 +421,7 @@ class Game {
       if (e.key === " " && !this.fired) this.player.shoot();
       this.fired = true;
       if (this.keys.indexOf(e.key) === -1) this.keys.push(e.key);
-      if (e.key === "r" && this.gameOver) this.restart();
+      if ((e.key === "r" || e.key === "R") && this.gameOver) this.restart();
     });
     window.addEventListener("keyup", (e) => {
       this.fired = false;
