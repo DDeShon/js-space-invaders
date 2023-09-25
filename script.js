@@ -1,17 +1,24 @@
 class Laser {
   constructor(game) {
     this.game = game;
-    this.x;
-    this.y;
-    this.width;
-    this.height;
+    this.x = 0;
+    this.y = 0;
+    this.height = this.game.height - 50;
   }
-  render(context) {}
+  render(context) {
+    this.x = this.game.player.x;
+
+    context.save();
+    context.fillStyle = "gold";
+    context.fillRect(this.x, this.y, this.width, this.height);
+    context.restore();
+  }
 }
 
 class SmallLaser extends Laser {
   constructor(game) {
     super(game);
+    this.width = 5;
   }
   render(context) {
     super.render(context);
