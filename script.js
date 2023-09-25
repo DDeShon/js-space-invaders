@@ -46,7 +46,9 @@ class SmallLaser extends Laser {
     this.damage = 0.3;
   }
   render(context) {
-    super.render(context);
+    if (this.game.player.energy > 1 && !this.game.player.cooldown) {
+      super.render(context);
+    }
   }
 }
 
@@ -57,7 +59,9 @@ class BigLaser extends Laser {
     this.damage = 0.7;
   }
   render(context) {
-    super.render(context);
+    if (this.game.player.energy > 1 && !this.game.player.cooldown) {
+      super.render(context);
+    }
   }
 }
 
