@@ -30,7 +30,7 @@ class Laser {
         });
       });
       this.game.bossArray.forEach((boss) => {
-        if (this.game.checkCollision(boss, this)) {
+        if (this.game.checkCollision(boss, this) && boss.y >= 0) {
           boss.hit(this.damage);
         }
       });
@@ -76,6 +76,9 @@ class Player {
     this.jetsFrame = 1;
     this.smallLaser = new SmallLaser(this.game);
     this.bigLaser = new BigLaser(this.game);
+    this.energy = 50;
+    this.maxEnergy = 100;
+    this.cooldown = false;
   }
   draw(context) {
     // handle sprite frames
