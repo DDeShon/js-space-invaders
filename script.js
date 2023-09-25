@@ -554,6 +554,13 @@ class Game {
     for (let i = 0; i < this.player.lives; i++) {
       context.fillRect(20 + 20 * i, 100, 10, 15);
     }
+
+    // energy bar
+    for (let i = 0; i < this.player.energy; i++) {
+      context.fillRect(20 + 2 * i, 135, 2, 15);
+    }
+
+    // game over text
     if (this.gameOver) {
       context.textAlign = "center";
       context.font = "100px Impact";
