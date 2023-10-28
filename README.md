@@ -1,3 +1,3 @@
 ﻿# js-space-invaders
 
-Remake of Space Invaders using JavaScript
+The beginning of a potential remake of Space Invaders using JavaScript
